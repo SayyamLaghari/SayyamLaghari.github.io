@@ -1,185 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sayyam Laghari - Web Developer Portfolio. Modern, responsive, interactive websites.">
-  <title>Sayyam Laghari Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* ====== General ====== */
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family:'Poppins', sans-serif; scroll-behavior:smooth; background:#fff; color:#333;}
-    .container {width:90%; max-width:1200px; margin:0 auto;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Sayyam Laghari - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Montserrat', sans-serif; }
+body { scroll-behavior:smooth; }
+a { text-decoration:none; color:inherit; }
+section { padding:100px 20px; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+h1,h2,h3 { margin-bottom:20px; }
+p { margin-bottom:20px; }
 
-    /* ====== Hero ====== */
-    #hero {
-      height:100vh; display:flex; justify-content:center; align-items:center;
-      text-align:center; background:linear-gradient(135deg,#6b73ff,#000dff);
-      color:white; position:relative; overflow:hidden;
-    }
-    #hero::after {
-      content:""; position:absolute; top:0; left:0; width:100%; height:100%;
-      background:rgba(0,0,0,0.3); z-index:1;
-    }
-    .hero-content {position:relative; z-index:2;}
-    #hero h1 {font-size:3rem; margin-bottom:15px; animation:fadeInDown 1s ease;}
-    #hero p {font-size:1.3rem; margin-bottom:25px; animation:fadeInUp 1s ease;}
-    #hero .btn {
-      padding:12px 25px; background:linear-gradient(45deg,#fff,#ccc);
-      color:#000dff; text-decoration:none; border-radius:5px; font-weight:bold;
-      transition:0.3s; animation:fadeIn 1.5s ease;
-    }
-    #hero .btn:hover {background:linear-gradient(45deg,#000dff,#6b73ff); color:#fff;}
+/* Navbar */
+nav { position:fixed; top:0; width:100%; padding:15px 20px; background:transparent; display:flex; justify-content:center; transition:0.3s; z-index:1000; }
+nav.scrolled { background:#333; }
+nav ul { list-style:none; display:flex; gap:25px; }
+nav ul li a { color:white; font-weight:600; transition:0.3s; }
+nav.scrolled ul li a { color:white; }
+nav ul li a:hover { color:#00bfff; }
 
-    /* ====== About ====== */
-    #about {padding:80px 20px; background:#f7f7f7; text-align:center;}
-    #about h2 {font-size:2.5rem; margin-bottom:20px;}
-    #about p {font-size:1.1rem; line-height:1.6; max-width:700px; margin:10px auto; opacity:0; transform:translateY(20px); transition:0.6s ease;}
+/* Hero Section */
+.hero { width:100%; height:100vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&w=1200&h=800') center/cover no-repeat; color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+.hero h1 { font-size:3em; animation: fadeInDown 1s ease-in; }
+.hero p { font-size:1.5em; margin-bottom:30px; animation: fadeInUp 1.2s ease-in; }
+.hero .btn { background:#00bfff; color:white; padding:12px 25px; border-radius:50px; font-weight:bold; transition:0.3s; animation: fadeInUp 1.4s ease-in; }
+.hero .btn:hover { background:#0077cc; }
 
-    /* ====== Projects ====== */
-    #projects {padding:80px 20px; text-align:center;}
-    #projects h2 {font-size:2.5rem; margin-bottom:30px;}
-    .project-filters {margin-bottom:40px;}
-    .project-filters .filter-btn {padding:10px 20px; margin:0 5px; border:none; border-radius:5px; background:#eee; cursor:pointer; transition:0.3s;}
-    .project-filters .filter-btn.active, .project-filters .filter-btn:hover {background:#000dff; color:#fff;}
-    .project-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px;}
-    .project-card {background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 5px 20px rgba(0,0,0,0.15); transition:transform 0.3s, box-shadow 0.3s; opacity:0; transform:translateY(30px);}
-    .project-card:hover {transform:translateY(-10px); box-shadow:0 10px 30px rgba(0,0,0,0.2);}
-    .project-card img {width:100%; height:180px; object-fit:cover;}
-    .project-card h3 {padding:15px;}
+/* About Section */
+.about { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:30px; background:#f5f5f5; color:#333; }
+.about .text { max-width:500px; }
+.about img { width:250px; border-radius:50%; box-shadow:0 5px 20px rgba(0,0,0,0.2); transform:scale(0); opacity:0; transition:0.8s; }
 
-    /* ====== Contact ====== */
-    #contact {padding:80px 20px; background:#f0f0f0; text-align:center;}
-    #contact h2 {font-size:2.5rem; margin-bottom:15px;}
-    #contact p {font-size:1.1rem; margin-bottom:30px;}
-    #contact-form {max-width:600px; margin:0 auto; display:flex; flex-direction:column;}
-    #contact-form input, #contact-form textarea {padding:12px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc; font-size:1rem;}
-    #contact-form button {padding:12px; background:linear-gradient(45deg,#000dff,#6b73ff); color:#fff; border:none; border-radius:5px; font-weight:bold; cursor:pointer; transition:0.3s;}
-    #contact-form button:hover {background:linear-gradient(45deg,#6b73ff,#000dff);}
+/* Skills Section */
+.skills { background:#fff; color:#333; }
+.skills .skill { margin:15px 0; width:80%; max-width:500px; text-align:left; }
+.skills .skill-name { font-weight:bold; margin-bottom:5px; }
+.skills .skill-bar { background:#eee; height:20px; border-radius:10px; overflow:hidden; }
+.skills .skill-bar div { height:100%; background:#00bfff; width:0; border-radius:10px; transition:1s; }
 
-    /* ====== Social Icons ====== */
-    .social-icons {position:fixed; top:50%; right:20px; display:flex; flex-direction:column; gap:15px; transform:translateY(-50%);}
-    .social-icons a img {width:40px; height:40px; transition:0.3s; filter:drop-shadow(2px 2px 2px rgba(0,0,0,0.2));}
-    .social-icons a img:hover {transform:scale(1.2) rotate(10deg);}
+/* Projects Section */
+.services { background:#f0f8ff; }
+.services .projects { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.services .project { background:white; padding:20px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.2); width:300px; transition:0.5s; cursor:pointer; display:flex; flex-direction:column; align-items:center; }
+.services .project:hover { transform:translateY(-10px) scale(1.05); box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+.services .project img { width:100%; border-radius:10px; margin-bottom:15px; }
 
-    /* ====== Animations ====== */
-    @keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
-    @keyframes fadeInUp {from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);}}
-    @keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
-  </style>
+/* Contact Section */
+.contact { background:#f5f5f5; }
+.contact form { display:flex; flex-direction:column; align-items:center; gap:15px; margin-top:20px; }
+.contact input, .contact textarea { padding:12px; width:300px; max-width:90%; border-radius:10px; border:1px solid #ccc; }
+.contact button { padding:12px 25px; border:none; border-radius:50px; background:#00bfff; color:white; font-weight:bold; cursor:pointer; transition:0.3s; }
+.contact button:hover { background:#0077cc; }
+
+/* Animations */
+@keyframes fadeInDown { 0% {opacity:0; transform:translateY(-30px);} 100% {opacity:1; transform:translateY(0);} }
+@keyframes fadeInUp { 0% {opacity:0; transform:translateY(30px);} 100% {opacity:1; transform:translateY(0);} }
+
+@media(max-width:768px){ 
+    .about { flex-direction:column; }
+    nav ul { flex-direction:column; gap:15px; }
+}
+</style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section id="hero">
-    <div class="container hero-content">
-      <h1>Hello, I'm Sayyam Laghari</h1>
-      <p>I'm a passionate Web Developer creating modern, responsive, and interactive websites that look amazing on all devices.</p>
-      <a href="#projects" class="btn">View My Work</a>
+<nav id="navbar">
+    <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#services">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="hero">
+    <h1>Muhammad Sayyam Laghari</h1>
+    <p>Frontend Developer | Modern & Responsive Websites</p>
+    <a href="#contact" class="btn">Hire Me</a>
+</section>
+
+<section class="about" id="about">
+    <div class="text">
+        <h2>About Me</h2>
+        <p>I am Muhammad Sayyam Laghari, a passionate Frontend Developer with skills in HTML, CSS, JavaScript, PHP. I create modern websites for clients and personal projects.</p>
     </div>
-  </section>
+    <img src="c:\Users\1nOnly Nixon\Pictures\Camera Roll\WhatsApp Image 2025-11-28 at 09.08.54_61b20b98.jpg" alt="Profile Picture" id="profilePic">
+</section>
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <p class="fade-on-scroll">Hi! I'm Sayyam Laghari, a front-end web developer with a passion for building user-friendly, responsive, and visually appealing websites. I specialize in HTML, CSS, JavaScript, and creating projects that combine functionality with modern design.</p>
-      <p class="fade-on-scroll">My goal is to deliver websites that not only look great but also perform flawlessly on desktop and mobile devices. Check out my projects and get in touch!</p>
+<section class="skills" id="skills">
+    <h2>My Skills</h2>
+    <div class="skill"><div class="skill-name">HTML - Advanced</div><div class="skill-bar"><div data-width="90%"></div></div></div>
+    <div class="skill"><div class="skill-name">CSS - Advanced</div><div class="skill-bar"><div data-width="90%"></div></div></div>
+    <div class="skill"><div class="skill-name">JavaScript - Intermediate</div><div class="skill-bar"><div data-width="75%"></div></div></div>
+    <div class="skill"><div class="skill-name">jQuery - Intermediate</div><div class="skill-bar"><div data-width="70%"></div></div></div>
+    <div class="skill"><div class="skill-name">Bootstrap / Tailwind - Intermediate</div><div class="skill-bar"><div data-width="75%"></div></div></div>
+    <div class="skill"><div class="skill-name">PHP - Beginner</div><div class="skill-bar"><div data-width="40%"></div></div></div>
+</section>
+
+<section class="services" id="services">
+    <h2>My Projects</h2>
+    <div class="projects">
+        <div class="project">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?crop=entropy&cs=tinysrgb&fit=max&w=300&h=200" alt="Business Website">
+            <h3>Business Website</h3>
+            <p>Modern responsive business website with Home, About, Services, Contact pages.</p>
+            <a href="./part/Bussiness.html" class="btn">View Project</a>
+        </div>
+        <div class="project">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?crop=entropy&cs=tinysrgb&fit=max&w=300&h=200" alt="Restaurant Website">
+            <h3>Restaurant Website</h3>
+            <p>Showcasing menu, reservation, and contact details for a restaurant business.</p>
+            <a href="./part/index.html" class="btn">View Project</a>
+        </div>
+        <div class="project">
+            <img src="./images/Online/WhatsApp Image 2025-11-28 at 09.08.54_61b20b98.jpg" alt="Portfolio Website">
+            <h3>Personal Portfolio</h3>
+            <p>Clean personal portfolio website to display skills, projects, and contact info.</p>
+            <a href="" class="btn">View Project</a>
+        </div>
     </div>
-  </section>
+</section>
 
-  <!-- Projects Section -->
-  <section id="projects">
-    <div class="container">
-      <h2>My Projects</h2>
-      <div class="project-filters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="business">Business</button>
-        <button class="filter-btn" data-filter="restaurant">Restaurant</button>
-        <button class="filter-btn" data-filter="personal">Personal</button>
-      </div>
-
-      <div class="project-grid">
-        <div class="project-card business">
-          <img src="images/business1.jpg" alt="Business Project 1">
-          <h3>Business Website</h3>
-        </div>
-        <div class="project-card restaurant">
-          <img src="images/restaurant1.jpg" alt="Restaurant Project 1">
-          <h3>Restaurant Website</h3>
-        </div>
-        <div class="project-card personal">
-          <img src="images/personal1.jpg" alt="Personal Portfolio">
-          <h3>Personal Portfolio</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <p>Have a project in mind or just want to say hi? Reach out to me!</p>
-
-      <form id="contact-form">
+<section class="contact" id="contact">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:sayyamlaghari123@gmail.com">sayyamlaghari123@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/03091008236" target="_blank">0309-1008236</a></p>
+    <form action="#">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <textarea name="message" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
+    </form>
+</section>
 
-  <!-- Floating Social Icons -->
-  <div class="social-icons">
-    <a href="https://github.com/SayyamLaghari" target="_blank"><img src="images/github.png" alt="GitHub"></a>
-    <a href="https://linkedin.com/in/SayyamLaghari" target="_blank"><img src="images/linkedin.png" alt="LinkedIn"></a>
-    <a href="https://twitter.com/SayyamLaghari" target="_blank"><img src="images/twitter.png" alt="Twitter"></a>
-  </div>
+<script>
+window.addEventListener('scroll', function() {
+    const nav = document.getElementById('navbar');
+    if(window.scrollY > 50){ nav.classList.add('scrolled'); }
+    else { nav.classList.remove('scrolled'); }
 
-  <!-- JS -->
-  <script>
-    // Project Filter
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projects = document.querySelectorAll('.project-card');
+    const profile = document.getElementById('profilePic');
+    const profilePos = profile.getBoundingClientRect().top;
+    const screenPos = window.innerHeight / 1.2;
+    if(profilePos < screenPos){ profile.style.transform = "scale(1)"; profile.style.opacity = "1"; }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        projects.forEach(project => {
-          if(filter === 'all' || project.classList.contains(filter)){
-            project.style.display = 'block';
-          } else {
-            project.style.display = 'none';
-          }
-        });
-      });
-    });
+    const skills = document.querySelectorAll('.skill-bar div');
+    const skillsSection = document.getElementById('skills');
+    const skillPos = skillsSection.getBoundingClientRect().top;
+    if(skillPos < screenPos){ skills.forEach(bar => { bar.style.width = bar.getAttribute('data-width'); }); }
+});
+</script>
 
-    // Contact Form Alert
-    document.getElementById('contact-form').addEventListener('submit', function(e){
-      e.preventDefault();
-      alert('Thanks for reaching out! I will get back to you soon.');
-      this.reset();
-    });
-
-    // Fade-in on scroll
-    const faders = document.querySelectorAll('.fade-on-scroll');
-    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll){
-      entries.forEach(entry => {
-        if(!entry.isIntersecting) return;
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = 'translateY(0)';
-        appearOnScroll.unobserve(entry.target);
-      });
-    }, appearOptions);
-
-    faders.forEach(fader => { appearOnScroll.observe(fader); });
-  </script>
 </body>
 </html>
+
